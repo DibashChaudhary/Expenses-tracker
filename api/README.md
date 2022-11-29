@@ -29,6 +29,7 @@ User api will use the following pah `{rooturl}/api/v1/user`. THis api will allow
 | #   | PATH | METHOD | IS PRIVATE | DESCRIPTION     |
 | --- | ---- | ------ | ---------- | --------------- |
 | 1.  | `/`  | POST   | fals       | create new user |
+| 2.  | `/login`  | POST   | fals       | loginuser |
 
 ### Transaction API
 

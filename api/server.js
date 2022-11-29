@@ -20,10 +20,13 @@ connectDB();
 import userRouter from "./src/routers/userRotuer.js";
 app.use("/api/v1/user", userRouter);
 
-app.use("*", (req, res) => {
-  res.json({
-    messsage: "you are in the worng place, Yo, go back!",
-  });
+app.use("*", (req, res, next) => {
+  const error = {
+    message: "404 page not found",
+    code:200,
+  }
+  next(error)
+
 });
 
 // global error handler

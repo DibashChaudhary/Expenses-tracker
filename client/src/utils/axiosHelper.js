@@ -14,6 +14,17 @@ export const postUser = (formData) =>{
         }
     }
 }
+//login user
+export const loginUser = (formData) =>{
+    try {
+        return axios.post(userUrl + "/login", formData)
+    } catch (error) {
+        return {
+            status:error,
+            message: error.message
+        }
+    }
+}
 
 //fetch all data from the server
 
