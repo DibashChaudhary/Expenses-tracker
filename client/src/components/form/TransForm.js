@@ -3,39 +3,67 @@ import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 
 export const TransForm = () => {
+  const initialState ={
+    type: "",
+    name: "",
+    amount: "",
+  }
 
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({initialState});
 
   const handleOnChange = (e) => {
-        setFormData(e.target.value)
+    const{value, name} = e.target;
+    console.log(name, value)
+
+    setFormData({
+     formData,
+      [name]: value,
+    })
+        
   }
-  console.log(formData)
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData)
+
+    setFormData(initialState);
+  }
+ 
 
   return (
     <>
         <div className='form'>
-        <Container className='d-grid mt-3'>
-            <Form.Group className="mb-3">
-            <Row>
-            <Col xs={3}>
-                <Form.Select>
-                <option>Income</option>
-                <option>Expenses</option>
+        <Container className='d-grid mt-3' onSubmit={handleOnSubmit}>
+            <Form className="mb-3">
+            <Row className='gap-2'>
+            <Col md="3">
+                <Form.Select name="type" defaultValue="choose.." required
+                onChange={handleOnChange}
+                value={formData.type}>
+                  <option>Choose..</option>
+                  <option>Income</option>
+                  <option>Expenses</option>
                 </Form.Select>
             </Col>
-            <Col xs={5}>
-                <Form.Control placeholder="Enter your Income/Expenses here" />
+            <Col md="5">
+                <Form.Control name="name" placeholder="Enter your Income/Expenses here" required 
+                onChange={handleOnChange}
+                value={formData.name}/>
             </Col>
-            <Col xs={2}>
-                <Form.Control type="number" placeholder="100" />
+            <Col md="2">
+                <Form.Control name="amount" type="number" placeholder="100" required
+                onChange={handleOnChange}
+                value={formData.amount}/>
             </Col>
-            <Col xs={2}>
-                <Button variant="primary" type="submit" onChange={handleOnChange}>
-                    Submit
+            <Col md="2">
+              <div className="d-grid">
+                <Button variant="primary" type="submit">
+                    Add
                 </Button>
+              </div>
             </Col>
             </Row>
-            </Form.Group>
+            </Form>
         </Container>
      </div>
     </>
