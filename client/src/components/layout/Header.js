@@ -1,9 +1,18 @@
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import {Link} from "react-router-dom";
 
 export const Header = () => {
+  const [user, setUser] = useState({})
+
+  useEffect(()=>{
+      const user = JSON.parse(sessionStorage.getItem("user"));
+      setUser(user);
+    console.log(user)
+  },[])
+
   return (
     <Navbar bg="primary" expand="md" variant="dark">
       <Container>
@@ -11,9 +20,20 @@ export const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Link to="/" className="nav-link">Login</Link>
-            <Link to="/register" className="nav-link">Register</Link>
-            <Link to="#" className="nav-link">Log Out</Link>
+            {user?._id ? (
+              <>
+                <div className="nav-link fw-bolder text-warning">
+                  welcome Back {user?.name}
+                  </div>
+                  <Link to="#" className="nav-link">Log Out</Link>
+              </>
+            ):(
+              <>
+                <Link to="/" className="nav-link">Login</Link>
+                <Link to="/register" className="nav-link">Register</Link>
+              </>
+            )}
+           
           </Nav>
         </Navbar.Collapse>
       </Container>

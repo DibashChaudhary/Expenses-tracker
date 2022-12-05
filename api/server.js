@@ -18,6 +18,7 @@ connectDB();
 
 // routers
 import userRouter from "./src/routers/userRotuer.js";
+import router from "./src/routers/userRotuer.js";
 app.use("/api/v1/user", userRouter);
 
 app.use("*", (req, res, next) => {
@@ -39,7 +40,9 @@ app.use((error, req, res, next) => {
 });
 
 app.listen(PORT, (error) => {
+
   error
     ? console.log(error)
     : console.log(`you server is ready at http://localhost:${PORT}`);
 });
+

@@ -1,5 +1,6 @@
 import express from "express";
-import { insertUser } from "../models/user/UserModel.js";
+import { insertUser, findUser } from "../models/user/UserModel.js";
+import UserSchema from "../models/user/UserSchema.js";
 const router = express.Router();
 
 // create user router
@@ -32,5 +33,35 @@ router.post("/", async (req, res, next) => {
     next(error);
   }
 });
+
+router.post("/login", async(req,res,next)=>{
+  try {
+    console.log(req.body)
+
+    //grab tyhe data comming from the login form
+    const user = await findUser(req.body)
+    console.log(user)
+    user?._id ? res.json({
+      status:"success",
+      message:"Login Successfully",
+      user: {
+        name:user.name,
+        _id:user._id,
+      }
+    })
+    : res.json({
+      status:"error",
+      message:"Error! Invalid Login details",
+    })
+
+    // querry database with email and pin and see if there is any account exist
+
+    //-->true, login success
+    //--> false, invalid login 
+  } catch (error) {
+    next(error);
+  }
+})
+
 
 export default router;

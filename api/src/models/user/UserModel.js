@@ -6,5 +6,7 @@ export const insertUser = (obj) => {
 };
 
 //login user
-
+export const findUser = obj => {
+  return UserSchema.findOne(obj)
+}
 // delete user

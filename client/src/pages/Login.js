@@ -6,10 +6,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import {loginUser } from "../utils/axiosHelper";
 import { Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
-
-const [loginData, setLoginData]= useState({});
+const navigate = useNavigate();
+const [loginData, setLoginData]= useState({
+  email:"dibashchaudhary2301@gmail.com",
+  pin:"1234"
+});
 const [response, setResponse]=useState({})
   const loginHandleOnChange = (e)=>{
     const { value, name }= e.target;
@@ -24,9 +28,12 @@ const [response, setResponse]=useState({})
     e.preventDefault();
     const {data}= await loginUser(loginData)
     setResponse(data);
-  }
 
-  
+    if( data.status === "success" ){
+      navigate("/dashboard"); 
+      sessionStorage.setItem("user", JSON.stringify(data.user));
+    }
+  }
   console.log(loginData)
 
   const inputFields = [
@@ -36,6 +43,7 @@ const [response, setResponse]=useState({})
       required: true,
       name: "email",
       type: "email",
+      value: loginData.email,
     },
     {
       label: "pin",
@@ -43,8 +51,8 @@ const [response, setResponse]=useState({})
       required: true,
       name: "pin",
       type: "number",
-      min: 1000,
-      max: 9999,
+      value:loginData.pin,
+    
     },
   ];
 
