@@ -1,32 +1,40 @@
 
 import React, { useState } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { postTrans } from '../../utils/axiosHelper';
+import { toast } from "react-toastify";
 
-export const TransForm = () => {
-  const initialState ={
-    type: "",
-    name: "",
-    amount: "",
-  }
+const initialState ={
+  type: "",
+  name: "",
+  amount: "",
+}
+export const TransForm = ({getTrans}) => {
 
-  const [formData, setFormData] = useState({initialState});
+  const [formData, setFormData] = useState(initialState);
 
   const handleOnChange = (e) => {
     const{value, name} = e.target;
     console.log(name, value)
 
     setFormData({
-     formData,
+     ...formData,
       [name]: value,
     })
+  
         
   }
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
     console.log(formData)
+    const {status, message} = await postTrans(formData);
+    console.log(status, message);
+    toast[status](message);
 
+    
     setFormData(initialState);
+    getTrans();
   }
  
 

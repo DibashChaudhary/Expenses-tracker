@@ -3,9 +3,12 @@ import { Login } from "./pages/Login";
 import {Routes, Route} from 'react-router-dom'
 import { Register } from "./pages/Register";
 import { Dashboard } from "./pages/Dashboard";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
+  
 
   return (
     <div>
@@ -15,6 +18,8 @@ function App() {
         <Route path="dashboard" element={<Dashboard/>} />
       </Routes>
       <Login />
+      <ToastContainer/>
+        
     </div>
   );
 }

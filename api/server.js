@@ -18,8 +18,11 @@ connectDB();
 
 // routers
 import userRouter from "./src/routers/userRotuer.js";
-import router from "./src/routers/userRotuer.js";
+import transactionRouter from "./src/routers/TransactionRouter.js"
+import { isAuth } from "./src/middleware/AuthMiddleware.js";
+
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/transaction", isAuth, transactionRouter)
 
 app.use("*", (req, res, next) => {
   const error = {
